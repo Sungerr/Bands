@@ -12,17 +12,17 @@
         android:layout_height="120dp"
         android:layout_marginTop="200dp"
         android:text="Tracking"
-        app:layout_constraintEnd_toStartOf="@+id/statsButton"
+        app:layout_constraintEnd_toStartOf="@+id/safeButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/statsButton"
+        android:id="@+id/safeButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="200dp"
-        android:text="Stats"
+        android:text="Saftey Mode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/trackButton"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/travelButton"
-        app:layout_constraintTop_toBottomOf="@+id/statsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/safeButton" />
 
     <TextView
         android:id="@+id/textView"

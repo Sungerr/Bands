@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button statsButton, trackButton, scanButton, travelButton;
+    Button safeButton, trackButton, scanButton, travelButton;
 
 
     @Override
@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        statsButton = findViewById(R.id.statsButton);
-        statsButton.setOnClickListener(new View.OnClickListener() {
+        safeButton = findViewById(R.id.safeButton);
+        safeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent statsIntent = new Intent(getApplicationContext(), ScanActivity.class);
+                Intent statsIntent = new Intent(getApplicationContext(), SafeActivity.class);
                 startActivity(statsIntent);
             }
         });
