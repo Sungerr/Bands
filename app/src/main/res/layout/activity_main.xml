@@ -7,48 +7,48 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/trackButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="200dp"
         android:text="Tracking"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintEnd_toStartOf="@+id/statsButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/statsButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="200dp"
         android:text="Stats"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintStart_toEndOf="@+id/trackButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/travelButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="50dp"
         android:text="Travel"
-        app:layout_constraintEnd_toStartOf="@+id/button8"
+        app:layout_constraintEnd_toStartOf="@+id/scanButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/trackButton" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/scanButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="50dp"
         android:text="Scan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button7"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintStart_toEndOf="@+id/travelButton"
+        app:layout_constraintTop_toBottomOf="@+id/statsButton" />
 
     <TextView
         android:id="@+id/textView"
