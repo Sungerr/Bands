@@ -1,17 +1,25 @@
 package com.example.bands;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Placeholder;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ScanActivity extends AppCompatActivity {
 
     TextView textViewInfo;
+    NfcAdapter nfcAdapter;
+    PendingIntent pendingIntent;
+    Button scan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,50 +28,49 @@ public class ScanActivity extends AppCompatActivity {
 
         textViewInfo = findViewById(R.id.info);
 
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter = NfcAdapter.getDefaultAdapter(ScanActivity.this);
         if(nfcAdapter == null){
-            Toast.makeText(this, "NFC NOT supported on this devices!", Toast.LENGTH_LONG).show();
+            Toast.makeText(ScanActivity.this, "NFC NOT supported on this devices!", Toast.LENGTH_LONG).show();
             finish();
-        }else if(!nfcAdapter.isEnabled()){
-            Toast.makeText(this, "NFC NOT Enabled!", Toast.LENGTH_LONG).show();
+        } else if(!nfcAdapter.isEnabled()){
+            Toast.makeText(ScanActivity.this, "NFC NOT Enabled!", Toast.LENGTH_LONG).show();
             finish();
+        } else {
+            Toast.makeText(ScanActivity.this, "NFC Enabled! Scan Your Tag to Get Started", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     protected void onResume() {
+        Intent intent = new Intent(this, ScanActivity.class);
+        intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        IntentFilter[] intentFilter = new IntentFilter[]{};
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilter, null);
         super.onResume();
-
-        Intent intent = getIntent();
-        String action = intent.getAction();
-
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
-            Toast.makeText(this, "onResume() - ACTION_TAG_DISCOVERED", Toast.LENGTH_SHORT).show();
-
-            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            if(tag == null){
-                textViewInfo.setText("tag == null");
-            }else{
-                String tagInfo = tag.toString() + "\n";
-
-                tagInfo += "\nTag Id: \n";
-                byte[] tagId = tag.getId();
-                tagInfo += "length = " + tagId.length +"\n";
-                for(int i=0; i<tagId.length; i++){
-                    tagInfo += Integer.toHexString(tagId[i] & 0xFF) + " ";
-                }
-                tagInfo += "\n";
-
-                String[] techList = tag.getTechList();
-                tagInfo += "\nTech List\n";
-                tagInfo += "length = " + techList.length +"\n";
-                for(int i=0; i<techList.length; i++){
-                    tagInfo += techList[i] + "\n ";
-                }
-                textViewInfo.setText(tagInfo);
-            }
-        }else{
-            Toast.makeText(this, "onResume() : " + action, Toast.LENGTH_SHORT).show();
-        }
     }
+
+    @Override
+    protected void onPause() {
+        nfcAdapter.disableForegroundDispatch(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Toast.makeText(this, "NFC Intent Received!", Toast.LENGTH_LONG).show();
+    }
+//
+//    private void getTagInfo(Intent intent) {
+//        String action = intent.getAction();
+//
+//        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)|| NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
+//                || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
+//            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+//
+//        }
+//
+//    }
 }
